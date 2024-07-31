@@ -12,18 +12,26 @@ Field::~Field()
 
 void Field::up()
 {
+	if (pos_y_ > 0)
+		--pos_y_;
 }
 
 void Field::down()
 {
+	if (pos_y_ < 9 - 1)
+		++pos_y_;
 }
 
 void Field::right()
 {
+	if (pos_x_ < 9 - 1)
+		++pos_x_;
 }
 
 void Field::left()
 {
+	if (pos_x_ > 0)
+		--pos_x_;
 }
 
 void Field::setNum(char num)
@@ -36,17 +44,17 @@ void Field::setNum(char num)
 void Field::draw_field()
 {
 	system("cls");
-	std::string field;
-	for (auto const row : field_)
+	for (std::uint8_t y = 0; y < 9; ++y)
 	{
-		field += '|';
-		for (char const col : row)
+		std::cout << '|';
+		for (std::uint8_t x = 0; x < 9; ++x)
 		{
-			field += col;
-			field += '|';
+			if (x == pos_x_ && y == pos_y_)
+				std::cout << '@';
+			else
+				std::cout << field_[y][x];
+			std::cout << '|';
 		}
-		field += '\n';
+		std::cout << "\n";
 	}
-
-	std::cout << field;
 }
